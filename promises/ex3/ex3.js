@@ -1,12 +1,12 @@
 function cancellableFetch(url) {
-    let cancel;
-    let request = fetch(url);
-    let cancelPromise = new Promise((resolve, reject) => {
-        cancel = () => reject({ reason: 'cancelled' })
+    let controller = new AbortController();
+    const promise = fetch(url, {
+      signal: controller.signal,
     });
-    let returningPromise = Promise.race([request, cancelPromise]);
-    returningPromise.cancel = cancel;
-    return returningPromise;
-}
+    promise.cancel = function () {
+      controller.abort();
+    };
+    return promise;
+  }
 
 module.exports = cancellableFetch;

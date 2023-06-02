@@ -1,6 +1,6 @@
 function reverseBlocks(arr, blockSize) {
     if (blockSize < 1) {
-        throw new Error("Block size must be greater than 1")
+        throw new Error("Block size must be greater than 0")
     }
     let arrSize = arr.length;
     for (let i = 0; i < arrSize; i += blockSize) {

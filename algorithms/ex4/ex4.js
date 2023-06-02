@@ -1,16 +1,18 @@
 function mergeArrays(largeArray, smallArray) {
-    let index = 0;
-    for (let i = 0; i < largeArray.length; ++i) {
-        if(!largeArray[i]){
-            largeArray[i] = smallArray[index++]
-        }
-        let j = i;
-        while (j > 0 && largeArray[j - 1] > largeArray[j]) {
-            [largeArray[j], largeArray[j - 1]] = [largeArray[j - 1], largeArray[j]]
-            j--
-        }
+    let largeIndex = largeArray.length - smallArray.length - 1;
+    let smallIndex = smallArray.length - 1;
+    let mergedIndex = largeArray.length - 1;
+    while (smallIndex >= 0) {
+      if (largeIndex >= 0 && largeArray[largeIndex] > smallArray[smallIndex]) {
+        largeArray[mergedIndex] = largeArray[largeIndex];
+        largeIndex--;
+      } else {
+        largeArray[mergedIndex] = smallArray[smallIndex];
+        smallIndex--;
+      }
+      mergedIndex--;
     }
-    return largeArray;
 }
+  
 
 module.exports = mergeArrays;

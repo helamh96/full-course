@@ -1,4 +1,4 @@
-const isSymmetric = require("./ex12")
+const isSymmetric = require('./ex12');
 
 class TreeNode {
     constructor(val, left = null, right = null) {
@@ -8,14 +8,43 @@ class TreeNode {
     }
 }
 
-test("test1", () => {
-    const root1 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(2, new TreeNode(4), new TreeNode(3)))
-    isSymmetricTree = isSymmetric(root1)
+test('symmetric tree', () => {
+    const root1 = new TreeNode(
+        1,
+        new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+        new TreeNode(2, new TreeNode(4), new TreeNode(3))
+    );
+    isSymmetricTree = isSymmetric(root1);
     expect(isSymmetricTree).toBe(true);
-})
+});
 
-test("test2", () => {
-    const root2 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(2, new TreeNode(4)))
-    isSymmetricTree = isSymmetric(root2)
+test('non symmetric tree', () => {
+    const root2 = new TreeNode(
+        1,
+        new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+        new TreeNode(2, new TreeNode(4))
+    );
+    isSymmetricTree = isSymmetric(root2);
     expect(isSymmetricTree).toBe(false);
-})
+});
+
+test('Check symmetry of an empty tree', () => {
+    const root = null;
+    const result = isSymmetric(root);
+    expect(result).toBe(true);
+});
+
+test('Check symmetry of a tree with a single node', () => {
+    const root = new TreeNode(1);
+    const result = isSymmetric(root);
+    expect(result).toBe(true);
+});
+
+test('Check symmetry of a tree with a single branch', () => {
+    const root = new TreeNode(1);
+    root.left = new TreeNode(2);
+    root.left.left = new TreeNode(3);
+    root.left.left.left = new TreeNode(4);
+    const result = isSymmetric(root);
+    expect(result).toBe(false);
+});

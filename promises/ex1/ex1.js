@@ -1,5 +1,5 @@
 const runTasks = (tasks, pool_size) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const results = [];
     let runningTasks = 0;
     let currentIndex = 0;
