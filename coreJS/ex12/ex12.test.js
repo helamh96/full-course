@@ -14,7 +14,7 @@ test('symmetric tree', () => {
         new TreeNode(2, new TreeNode(3), new TreeNode(4)),
         new TreeNode(2, new TreeNode(4), new TreeNode(3))
     );
-    isSymmetricTree = isSymmetric(root1);
+    let isSymmetricTree = isSymmetric(root1);
     expect(isSymmetricTree).toBe(true);
 });
 
@@ -24,7 +24,7 @@ test('non symmetric tree', () => {
         new TreeNode(2, new TreeNode(3), new TreeNode(4)),
         new TreeNode(2, new TreeNode(4))
     );
-    isSymmetricTree = isSymmetric(root2);
+    let isSymmetricTree = isSymmetric(root2);
     expect(isSymmetricTree).toBe(false);
 });
 

@@ -1,6 +1,13 @@
 import chalk from "chalk";
-
 const N = parseInt(process.argv[2]);
+
+function updateProgressBar(percent, progressBarWidth) {
+  const completed = Math.floor(percent * progressBarWidth);
+  const remaining = progressBarWidth - completed;
+  const bar = chalk.green('='.repeat(completed)) + chalk.grey('-'.repeat(remaining));
+  const percentage = chalk.yellow(`${(percent * 100).toFixed(1)}%`);
+  process.stdout.write(`\r${bar} ${percentage}`);
+}
 
 function isPrime(n) {
   if (n <= 1) {
@@ -17,14 +24,6 @@ function isPrime(n) {
 const progressBarWidth = 50;
 let progress = 0;
 
-function updateProgressBar(percent) {
-  const completed = Math.floor(percent * progressBarWidth);
-  const remaining = progressBarWidth - completed;
-  const bar = chalk.green('='.repeat(completed)) + chalk.grey('-'.repeat(remaining));
-  const percentage = chalk.yellow(`${(percent * 100).toFixed(1)}%`);
-  process.stdout.write(`\r${bar} ${percentage}`);
-}
-
 const primes = [];
 let count = 0;
 
@@ -34,7 +33,7 @@ for (let i = 2; count < N; i++) {
     count++;
   }
   progress = count / N;
-  updateProgressBar(progress);
+  updateProgressBar(progress, progressBarWidth);
 }
 
 console.log(`\n\nThe first ${N} prime numbers are: ${primes.join(', ')}`);
