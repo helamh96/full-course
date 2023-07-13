@@ -1,15 +1,29 @@
-function hasCycle(head) {
-    let set = new Set()
-    let current = head   
-    while(current){
-        if(set.has(current.data)){
-            return current.data
-        }else{
-            set.add(current.data)
+function getCycleStartNode(head) {
+    let slow = head;
+    let fast = head;
+    let hasCycle = false;
+
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow === fast) {
+            hasCycle = true;
+            break;
         }
-        current = current.next
     }
-    return false
+
+    if (!hasCycle) {
+        return null;
+    }
+
+    slow = head;
+    while (slow !== fast) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    return slow;
 }
 
-module.exports = hasCycle
+module.exports = getCycleStartNode;

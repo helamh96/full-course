@@ -2,35 +2,46 @@ function isPalindrome(head) {
     if (!head || !head.next) {
         return true;
     }
-    let slow = head
-    let fast = head
+
+    let slow = head;
+    let fast = head;
 
     while (fast && fast.next) {
-        slow = slow.next
-        fast = fast.next.next
+        slow = slow.next;
+        fast = fast.next.next;
     }
 
-    let prev = null
-    let current = slow
-    while (current) {
-        const next = current.next
-        current.next = prev
-        prev = current
-        current = next
-    }
-
-    let p1 = head
-    let p2 = prev
+    let reversedHalf = reverseLinkedList(slow);
+    let p1 = head;
+    let p2 = reversedHalf;
 
     while (p2) {
         if (p1.val !== p2.val) {
-            return false
+            // Restore the original linked list
+            reverseLinkedList(reversedHalf);
+            return false;
         }
-        p1 = p1.next
-        p2 = p2.next
+        p1 = p1.next;
+        p2 = p2.next;
     }
 
+    // Restore the original linked list
+    reverseLinkedList(reversedHalf);
     return true;
-};
-  
-module.exports = isPalindrome
+}
+
+function reverseLinkedList(head) {
+    let prev = null;
+    let current = head;
+
+    while (current) {
+        const next = current.next;
+        current.next = prev;
+        prev = current;
+        current = next;
+    }
+
+    return prev;
+}
+
+module.exports = isPalindrome;

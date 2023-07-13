@@ -1,57 +1,60 @@
-const hasCycle = require("./ex16")
+const getCycleStartNode = require('./ex16');
+const { LinkedList } = require('./createLinked');
 
-class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
-    }
-  }
-  
-class LinkedList {
-constructor() {
-    this.head = null;
-}
+test('Returns null for an empty linked list', () => {
+    const list = new LinkedList();
 
-addNode(data) {
-    const newNode = new Node(data);
+    const cycleStartNode = getCycleStartNode(list.head);
 
-    if (!this.head) {
-    this.head = newNode;
-    } else {
-    let currentNode = this.head;
+    expect(cycleStartNode).toBeNull();
+});
 
-    while (currentNode.next) {
-        currentNode = currentNode.next;
-    }
-
-    currentNode.next = newNode;
-    }
-}
-
-printList() {
-    let currentNode = this.head;
-    const values = [];
-
-    while (currentNode) {
-    values.push(currentNode.data);
-    currentNode = currentNode.next;
-    }
-
-    console.log(values.join(" -> "));
-}
-}
-  
-
-
-test("test", () => {
+test('Returns null when there is no cycle in the linked list', () => {
     const list = new LinkedList();
 
     list.addNode(5);
     list.addNode(10);
     list.addNode(15);
     list.addNode(20);
+
+    const cycleStartNode = getCycleStartNode(list.head);
+
+    expect(cycleStartNode).toBeNull();
+});
+
+test('Returns the correct node where the cycle starts in the linked list', () => {
+    const list = new LinkedList();
+
+    list.addNode(5);
+    list.addNode(10);
     list.addNode(15);
-    
-    const cicle = hasCycle(list.head);
-    expect(cicle).toEqual(15);
-})
+    list.addNode(20);
+    list.head.next.next.next.next = list.head.next;
+
+    const cycleStartNode = getCycleStartNode(list.head);
+
+    expect(cycleStartNode.data).toBe(10);
+});
+
+test('Returns the same node as the cycle start in a single-node linked list', () => {
+    const list = new LinkedList();
+
+    list.addNode(5);
+    list.head.next = list.head;
+
+    const cycleStartNode = getCycleStartNode(list.head);
+
+    expect(cycleStartNode.data).toBe(5);
+});
+
+test('Returns the correct node where the cycle starts in a two-node linked list', () => {
+    const list = new LinkedList();
+
+    list.addNode(5);
+    list.addNode(10);
+    list.head.next.next = list.head;
+
+    const cycleStartNode = getCycleStartNode(list.head);
+
+    expect(cycleStartNode.data).toBe(5);
+});

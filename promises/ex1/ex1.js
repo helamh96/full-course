@@ -1,43 +1,27 @@
-const runTasks = (tasks, pool_size) => {
-  return new Promise((resolve) => {
-    const results = [];
-    let runningTasks = 0;
-    let currentIndex = 0;
+const runTasks = async (tasks, poolSize) => {
+  const results = [];
+  const runningTasks = [];
 
-    const runNextTask = () => {
-      if (currentIndex === tasks.length) {
-        return;
+  for (const task of tasks) {
+    const runTask = async () => {
+      try {
+        const result = await task();
+        results.push({ value: result });
+      } catch (error) {
+        results.push({ error });
       }
-
-      const currentTask = tasks[currentIndex];
-      currentIndex++;
-
-      runningTasks++;
-
-      const taskPromise = currentTask();
-
-      taskPromise
-        .then((value) => {
-          results.push({ value });
-        })
-        .catch((error) => {
-          results.push({ error });
-        })
-        .finally(() => {
-          runningTasks--;
-
-          if (runningTasks === 0 && currentIndex === tasks.length) {
-            resolve(results);
-          } else {
-            runNextTask();
-          }
-        });
     };
 
-    for (let i = 0; i < pool_size; i++) {
-      runNextTask();
+    runningTasks.push(runTask());
+
+    if (runningTasks.length >= poolSize) {
+      await Promise.race(runningTasks);
+      runningTasks.splice(runningTasks.indexOf(runTask), 1);
     }
-  });
+  }
+
+  await Promise.all(runningTasks);
+  return results;
 };
 
 module.exports = runTasks;

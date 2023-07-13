@@ -11,12 +11,12 @@ const nodeC = { val: 'C', children: [nodeF] };
 const root = { val: 'A', children: [nodeB, nodeC] };
 
 
-test("test1",()=>{
+test("expects to return true when are in the same depth",()=>{
     let ex1Depth = isSameDepth(root, 'D', 'E')
     expect(ex1Depth).toBe(true)
 })
 
-test("test2",()=>{
+test("expects to return flase when are not in the same depth",()=>{
     let ex2Depth = isSameDepth(root, 'B', 'F')
     expect(ex2Depth).toBe(false)
 })
@@ -32,12 +32,17 @@ const node2 = { val: 2, children: [node4, node5] };
 const node3 = { val: 3, children: [node6] };
 const root2 = { val: 1, children: [node2, node3] };
 
-test("test3",()=>{
+test("expects to return true when are in the same depth, example with numbers",()=>{
     let ex3Depth = isSameDepth(root2, 4, 7)
     expect(ex3Depth).toBe(false)
 })
 
-test("test4",()=>{
+test("expects to return false when are not in the same depth, example with numbers",()=>{
     let ex4Depth = isSameDepth(root2, 7, 10)
     expect(ex4Depth).toBe(true)
+})
+
+test("handle same name root", ()=>{
+    const root = { val: 1, children: [] };
+    expect(isSameDepth(root,1,1)).toBe(true)
 })

@@ -31,7 +31,7 @@ button {
     background-color: rgba(255, 99, 72, 0.9);
     color: white;
     border: none;
-    font: 900 calc(0.3*var(--font)) Verdana, Geneva, Tahoma, sans-serif;
+    font: 900 calc(0.5*var(--font)) Verdana, Geneva, Tahoma, sans-serif;
     top: -10%;
     right: -30%;
     width: calc(0.30*var(--buttonWidth));
@@ -56,12 +56,12 @@ button:hover {
     padding: 1px;
     width: 200px;
     height: 22px;
-    top: -10px;
+    top: -28px;
     z-index: 1;
     background: rgba(0, 0, 0, 255);
     box-shadow: calc(0.03*var(--buttonHeight)) calc(0.02*var(--buttonHeight)) calc(0.05*var(--buttonHeight)) calc(0.01*var(--buttonHeight)) rgba(63, 62, 62, 0.75);
     content: attr(data-hint);
-    font: calc(0.28 * var(--font)) Verdana, Geneva, Tahoma, sans-serif;
+    font: calc(0.5 * var(--font)) Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     color: white;
 
@@ -79,7 +79,7 @@ button:hover {
     height: 20px;
     transform: rotate(45deg);
     z-index: 0;
-    top: -4px;
+    top: -14px;
     right: 150px;
     font-size: 1px;
 }
@@ -101,4 +101,8 @@ input {
 
 input:focus {
     outline: none;
+}
+
+button:hover {
+    cursor: pointer;
 }

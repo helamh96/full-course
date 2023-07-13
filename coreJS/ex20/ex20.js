@@ -6,24 +6,21 @@ const htmlValue =
 
 const addDivs = () => {
   const emptyDivs = [...document.querySelectorAll(".fill:empty")];
-  emptyDivs.map((div) => {
+  emptyDivs.forEach((div) => {
     div.innerHTML = htmlValue;
   });
 };
 
-
 const howDeep = (x) => (f) => {
-  if (x > 0) {
+  if (x > 0 && x<10) {
     f();
     howDeep(x - 1)(f);
   }
 };
 
-function apply(){
-    const deept = document.getElementById("deep").value
-    console.log(deept)
-    howDeep(deept)(() => addDivs());
+function apply() {
+  const depth = parseInt(document.getElementById("deep").value);
+  if (!isNaN(depth)) {
+    howDeep(depth)(() => addDivs());
+  }
 }
-
-
-
