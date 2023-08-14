@@ -12,7 +12,7 @@ test('Setting a new data to store and changing something else', () => {
     }
 
     const { result } = renderHook(() => useLocalStorage('test', someConfig))
-
+    
     act(() => {
         result.current[1]({
             username: 'Alice',

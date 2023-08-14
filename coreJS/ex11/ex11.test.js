@@ -16,3 +16,16 @@ test('querySelectorAll handles selectors correctly', () => {
     const result = querySelectorAll('div.note < input.is-complete[checked]');
     expect(result.length).toBe(3);
 });
+
+test('querySelectorAll handles selectors without parent selector', () => {
+    const parentElement = document.createElement('section');
+    parentElement.innerHTML = `
+    <div class="child">Child 1</div>
+    <div class="child">Child 2</div>
+    <div class="child">Child 3</div>`;
+
+    document.body.appendChild(parentElement);
+
+    const result = querySelectorAll('.child');
+    expect(result.length).toBe(3);
+});

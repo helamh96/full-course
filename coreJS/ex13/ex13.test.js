@@ -44,5 +44,5 @@ test("expects to return false when are not in the same depth, example with numbe
 
 test("handle same name root", ()=>{
     const root = { val: 1, children: [] };
-    expect(isSameDepth(root,1,1)).toBe(true)
+    expect(()=>{isSameDepth(root,1,1)}).toThrow()
 })

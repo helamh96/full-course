@@ -1,17 +1,22 @@
 //with this approach complexity is O(n) linear
 
 function findIndexBalance(arr) {
-    const totalSum = arr.reduce((sum, num) => sum + num, 0);
+    let i = 0;
+    let j = arr.length - 1;
     let leftSum = 0;
-
-    for (let i = 0; i < arr.length; i++) {
-        const rightSum = totalSum - leftSum;
-        if (leftSum === rightSum) {
-            return i - 1;
+    let rightSum = 0;
+    while (i <= j) {
+        if (leftSum < rightSum) {
+            leftSum += arr[i];
+            i++;
+        } else {
+            rightSum += arr[j];
+            j--;
         }
-        leftSum += arr[i];
     }
-
+    if (leftSum === rightSum) {
+        return j;
+    }
     return -1;
 }
 

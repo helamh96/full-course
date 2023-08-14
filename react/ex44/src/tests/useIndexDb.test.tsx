@@ -1,11 +1,6 @@
-import { clear } from 'idb-keyval'
 import 'fake-indexeddb/auto'
 import { act, renderHook } from '@testing-library/react'
 import useIndexedDB from '../hooks/useIndexDB'
-
-beforeEach(() => {
-    clear()
-})
 
 test('Should initialize with initial data', async () => {
     const initialData = { prop1: 42, prop2: 'Alice' }

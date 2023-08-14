@@ -1,71 +1,87 @@
-import { act, render, screen, waitFor} from "@testing-library/react";
+import { render, screen, waitFor } from '@testing-library/react';
 import Gallery from '../components/Gallery';
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
-
-function TestComponent (){
+function GalleryComponent() {
     return (
-    <Provider store={store}>
-    <Gallery id="1" count={3} />
-    </Provider>
+        <Provider store={store}>
+            <Gallery id="1" count={3} />
+        </Provider>
     );
-};
+}
 
-test("Basic test", async () => {
-    render(<TestComponent />);
-    
-    const loading = screen.getAllByText("Loading...");
+// Test to ensure that images are loaded and URLs match the response data
+test('Loads images and matches URLs with response data', async () => {
+    render(<GalleryComponent />);
 
-    expect(loading).toBeTruthy();
-    const response = await fetch("http://localhost:3500/api/gallery/1?count=3&page=1")
-    const data = await response.json();
-    const URLFromResponse = data.images.map((element: any) => element.src);
-    
+    // Ensure "Loading..." text is displayed initially
+    const loadingTextElements = screen.getAllByText('Loading...');
+    expect(loadingTextElements).toBeTruthy();
+
+    // Fetch data from the API endpoint
+    const apiResponse = await fetch(
+        'http://localhost:3500/api/gallery/1?count=3&page=1'
+    );
+    const responseData = await apiResponse.json();
+    const URLsFromResponse = responseData.images.map((image: any) => image.src);
+
+    // Wait for images to be loaded and check if their URLs match the response data
     await waitFor(() => {
-        const images = screen.getAllByRole("img");
-
-        const imagesURL = images.map((element: any) => element.src)
-        expect(imagesURL).toStrictEqual(URLFromResponse);
-    })
-});
-
-test("Click on next arrow will render page no. 2", async () => {
-    render(<TestComponent />);
-
-    const nextButton = screen.getByLabelText("Go to next page");
-    const response = await fetch("http://localhost:3500/api/gallery/1?count=3&page=2")
-    const data = await response.json();
-    const URLFromResponse = data.images.map((element: any) => element.src);
-    
-    await waitFor(() => {
-        nextButton.click();
-    });
-
-    await waitFor(() => {
-        const images = screen.getAllByRole("img");
-
-        const imagesURL = images.map((element: any) => element.src)
-        expect(imagesURL).toStrictEqual(URLFromResponse);
+        const imageElements = screen.getAllByRole('img');
+        const imageURLs = imageElements.map(
+            (imageElement: any) => imageElement.src
+        );
+        expect(imageURLs).toStrictEqual(URLsFromResponse);
     });
 });
 
-test("Click on back arrow will render page no. 1", async () => {
-    render(<TestComponent />);
+// Test to verify that clicking on the next arrow renders the second page of the gallery
+test('Clicking on the next arrow renders the second page', async () => {
+    render(<GalleryComponent />);
 
-    const nextButton = screen.getByLabelText("Go to previous page");
-    const response = await fetch("http://localhost:3500/api/gallery/1?count=3&page=1")
-    const data = await response.json();
-    const URLFromResponse = data.images.map((element: any) => element.src);
-    
+    // Locate and click the next arrow button
+    const nextButton = screen.getByLabelText('Go to next page');
+    nextButton.click();
+
+    // Fetch data for the second page from the API endpoint
+    const apiResponse = await fetch(
+        'http://localhost:3500/api/gallery/1?count=3&page=2'
+    );
+    const responseData = await apiResponse.json();
+    const URLsFromResponse = responseData.images.map((image: any) => image.src);
+
+    // Wait for images to be loaded and check if their URLs match the response data for page 2
     await waitFor(() => {
-        nextButton.click();
+        const imageElements = screen.getAllByRole('img');
+        const imageURLs = imageElements.map(
+            (imageElement: any) => imageElement.src
+        );
+        expect(imageURLs).toStrictEqual(URLsFromResponse);
     });
+});
 
+// Test to verify that clicking on the back arrow renders the first page of the gallery
+test('Clicking on the back arrow renders the first page', async () => {
+    render(<GalleryComponent />);
+
+    // Click the next arrow button to move to page 2
+    const nextButton = screen.getByLabelText('Go to next page');
+    nextButton.click();
+
+    // Fetch data for the first page from the API endpoint
+    const apiResponse = await fetch(
+        'http://localhost:3500/api/gallery/1?count=3&page=1'
+    );
+    const responseData = await apiResponse.json();
+    const URLsFromResponse = responseData.images.map((image: any) => image.src);
+
+    // Wait for images to be loaded and check if their URLs match the response data for page 1
     await waitFor(() => {
-        const images = screen.getAllByRole("img");
-
-        const imagesURL = images.map((element: any) => element.src)
-        expect(imagesURL).toStrictEqual(URLFromResponse);
+        const imageElements = screen.getAllByRole('img');
+        const imageURLs = imageElements.map(
+            (imageElement: any) => imageElement.src
+        );
+        expect(imageURLs).toStrictEqual(URLsFromResponse);
     });
 });

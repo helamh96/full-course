@@ -16,7 +16,7 @@ const oldObj = {
     },
 };
 
-const result = {
+const expectedResult = {
     oldObj_name: 'Sara',
     oldObj_gender: 'Apache Attack Helicopter',
     oldObj_address_location_city: 'SF',
@@ -26,22 +26,22 @@ const result = {
     oldObj_address_other: undefined,
 };
 
-test('testing the functional way', () => {
+test('should correctly flatten the object using the functional approach', () => {
     const flat = flatten(oldObj, 'oldObj');
-    expect(flat).toEqual(result);
+    expect(flat).toEqual(expectedResult);
 });
 
-test('testing the imperative way', () => {
+test('should correctly flatten the object using the imperative approach', () => {
     const flat = flattenImperative(oldObj, 'oldObj');
-    expect(flat).toEqual(result);
+    expect(flat).toEqual(expectedResult);
 });
 
-test('functional empty object', () => {
+test('should handle an empty object when using the functional approach', () => {
     const flat = flatten({}, 'parent');
     expect(flat).toEqual({});
 });
 
-test('imperative empty object', () => {
+test('should handle an empty object when using the imperative approach', () => {
     const flat = flattenImperative({}, 'parent');
     expect(flat).toEqual({});
 });

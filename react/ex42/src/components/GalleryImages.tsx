@@ -15,6 +15,7 @@ const GalleryImages = ({ images }: Props) => {
     return(
     <ImageList
         variant="quilted"
+        cols={4}
         gap={10}
         rowHeight={400}
         sx={{
@@ -22,12 +23,13 @@ const GalleryImages = ({ images }: Props) => {
             height: "100%",
         }}
     >
-        {images?.map((item) => {
+        {images?.map((item, index) => {
             const cols = item.width > 2 * item.height ? 2 : 1;
             const rows = item.height > 2 * item.width ? 2 : 1;
 
             return (
             <ImageListItem
+            key={index}
             cols={cols || 1}
             rows={rows || 1}
             sx={{

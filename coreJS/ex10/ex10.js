@@ -45,6 +45,7 @@ function printTree(tree, order = 'infix') {
 
         let root = tree.slice(0, firstCommaIndex);
         let branches = tree.slice(firstCommaIndex + 1);
+
         if (branches.length < 1) {
             transverse += root;
             return;
@@ -67,11 +68,18 @@ function printTree(tree, order = 'infix') {
 
         let branch1;
         let branch2;
+
         if (closingParIndex === 0) {
             [branch1, branch2] = branches.split(',');
-            if (branch1 === '') {
-                branch2 = branches.slice(1);
+
+            // Additional checks for invalid input
+            if (branch1 === '' || branch2 === '') {
+                throw new SyntaxError('The tree syntax is not correct.');
             }
+
+            // Add parenthesis to branch1 and branch2
+            branch1 = '(' + branch1 + ')';
+            branch2 = '(' + branch2 + ')';
         } else {
             branch1 = branches.substring(0, closingParIndex + 1);
             branch2 = branches.slice(closingParIndex + 2);
@@ -104,4 +112,4 @@ function printTree(tree, order = 'infix') {
     return transverse;
 }
 
-module.exports = {printTree}
+module.exports = { printTree };
