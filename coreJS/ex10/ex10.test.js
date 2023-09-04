@@ -35,3 +35,10 @@ test('Test a tree with invalid syntax', () => {
         console.log(printTree(tree, 'infix'));
     }).toThrow(SyntaxError('The tree syntax is not correct.'));
 });
+
+test.skip("works with valid inputs", ()=> {
+    let tree = "(A,,(B))"
+    let expected = "BA"
+    let result = printTree(tree,"infix")
+    expect(result).toEqual(expected)
+})

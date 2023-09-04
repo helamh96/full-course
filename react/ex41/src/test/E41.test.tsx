@@ -7,7 +7,7 @@ import rootSaga from "../redux/rootSaga";
 import dataReducer from '../redux/slices/dataSlice';
 
 describe("Line chart tests", () => {
-    test("Line graph", () => {
+    test("renders Line Graph with valid data", () => {
 
         const data = [1, 2, 3, 4];
         const labels = ["April", "May", "June", "July"];
@@ -29,7 +29,7 @@ describe("Line chart tests", () => {
 });
 
 describe("Checking the sagas", () => {
-    test("Checking init state", () => {
+    test("initializes root saga and sets initial data reducer state", () => {
         return expectSaga(rootSaga)
             .withReducer(dataReducer)
             .run()

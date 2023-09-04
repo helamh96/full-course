@@ -35,7 +35,7 @@ body {
     text-align: center;
     text-transform: capitalize;
     color: white;
-    font-family: 'Charm', cursive;
+    font-family: 'charm', cursive;
     font-size: 15px;
     font-weight: 900;
     text-shadow: 0.5px 0.5px 0.5px black;
@@ -453,7 +453,7 @@ footer div ul li {
     }
 
     .font{
-        font-family: "Verdana";
+        font-family: "Sans-Serif";
     }
 
     .second-bar li div {

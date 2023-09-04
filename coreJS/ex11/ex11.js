@@ -10,12 +10,11 @@ function querySelectorAll(selector) {
         : [document];
 
     const children = [...parents].filter((parent) =>
-        Array.from(parent.querySelectorAll(childrenSelector)).some(
-            (child) => child.parentElement === parent
-        )
+        parent.querySelector(childrenSelector) !== null
     );
 
     return children;
 }
+
 
 module.exports = { querySelectorAll };

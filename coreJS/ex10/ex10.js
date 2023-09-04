@@ -16,12 +16,28 @@ function checkSyntax(tree) {
     return true;
 }
 
+function deleteRepeatingComas(word){
+    let finalWord = word.replaceAll(",,",",")
+    let repeat = true
+    do{
+        let finalWord2 = finalWord.replaceAll(",,",",")
+        if(finalWord2 == finalWord){
+            repeat = false
+        }
+        finalWord = finalWord2
+    }while(repeat)
+    return finalWord
+}
+
 function printTree(tree, order = 'infix') {
     let transverse = '';
 
     function transverseTree(tree, order) {
-        let correctSyntax = checkSyntax(tree);
+        let withOutRepeatedComas = deleteRepeatingComas(tree)
+        let correctSyntax = checkSyntax(withOutRepeatedComas);
+        console.log(correctSyntax)
         if (!correctSyntax) {
+            console.log("innnn")
             throw new SyntaxError('The tree syntax is not correct.');
         }
 
@@ -74,6 +90,7 @@ function printTree(tree, order = 'infix') {
 
             // Additional checks for invalid input
             if (branch1 === '' || branch2 === '') {
+                console.log(branch1, branch2)
                 throw new SyntaxError('The tree syntax is not correct.');
             }
 

@@ -1,36 +1,59 @@
-function isSameDepth(root, n1, n2) {
-    const queue = [{ node: root, depth: 1 }];
-    let depthN1 = null;
-    let depthN2 = null;
-    let foundN1 = false;
-    let foundN2 = false;
-
-    if(n1 == n2){
-        throw Error
+class NodeWithLevel {
+    constructor(node, level) {
+        this.node = node;
+        this.level = level;
     }
-
-    while (queue.length) {
-        const { node, depth } = queue.shift();
-
-        if (node.val === n1 && !foundN1) {
-            depthN1 = depth;
-            foundN1 = true;
-        }
-        if (node.val === n2 && !foundN2) {
-            depthN2 = depth;
-            foundN2 = true;
-        }
-
-        if (foundN1 && foundN2) {
-            break;
-        }
-
-        for (let child of node.children) {
-            queue.push({ node: child, depth: depth + 1 });
-        }
-    }
-
-    return depthN1 === depthN2;
 }
 
-module.exports = isSameDepth;
+function isSameDepth(tree, value1, value2) {
+    if (tree == null) {
+        return false;
+    }
+    let countValues = {};
+    if (value1 == value2) {
+        countValues = { value1: 0 };
+    } else {
+        countValues = { value1: 0, value2: 0 };
+    }
+    const treeWithLevel = new NodeWithLevel(tree, 0);
+    const queue = [treeWithLevel];
+    let prevElement = null;
+    let currElement = null;
+    while (queue.length > 0) {
+        prevElement = currElement;
+        currElement = queue.shift();
+        if (prevElement?.level != currElement?.level) {
+            countValues.value1 = 0;
+            countValues.value2 = 0;
+        }
+        if (value1 === currElement.node.value) {
+            countValues.value1++;
+        }
+        if (value2 === currElement.node.value) {
+            countValues.value2++;
+        }
+        if (value1 === value2 && countValues.value1 >= 2) {
+            return true;
+        }
+        if (
+            value1 != value2 &&
+            countValues.value1 >= 1 &&
+            countValues.value2 >= 1
+        ) {
+            return true;
+        }
+        for (const child of currElement.node.children) {
+            queue.push(new NodeWithLevel(child, currElement.level + 1));
+        }
+    }
+    return false;
+}
+
+function createTreeNode(value, children = []) {
+    return {
+        value: value,
+        children: children,
+    };
+}
+
+module.exports = {isSameDepth, createTreeNode};
