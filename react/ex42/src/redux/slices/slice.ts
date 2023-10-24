@@ -5,11 +5,23 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3500/api/',
     }),
+    // endpoints: (builder) => ({
+    //     getGallery: builder.query({
+    //         query: (args) => {
+    //             const { galleryId, count, page } = args;
+
+    //             return {
+    //                 url: `/gallery/${galleryId}`,
+    //                 params: { count, page },
+    //             }
+    //         } 
+    //     }),
+    // })
     endpoints: (builder) => ({
         getGallery: builder.query({
             query: (args) => {
                 const { galleryId, count, page } = args;
-
+                console.log('Gallery Query', galleryId, count, page); // Log the request
                 return {
                     url: `/gallery/${galleryId}`,
                     params: { count, page },

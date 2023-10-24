@@ -21,7 +21,7 @@ test('Loads images and matches URLs with response data', async () => {
 
     // Fetch data from the API endpoint
     const apiResponse = await fetch(
-        'http://localhost:3500/api/gallery/1?count=3&page=1'
+        'http://localhost:3000/api/gallery/1?count=3&page=1'
     );
     const responseData = await apiResponse.json();
     const URLsFromResponse = responseData.images.map((image: any) => image.src);
@@ -46,7 +46,7 @@ test('Clicking on the next arrow renders the second page', async () => {
 
     // Fetch data for the second page from the API endpoint
     const apiResponse = await fetch(
-        'http://localhost:3500/api/gallery/1?count=3&page=2'
+        'http://localhost:3000/api/gallery/1?count=3&page=2'
     );
     const responseData = await apiResponse.json();
     const URLsFromResponse = responseData.images.map((image: any) => image.src);
@@ -71,7 +71,7 @@ test('Clicking on the back arrow renders the first page', async () => {
 
     // Fetch data for the first page from the API endpoint
     const apiResponse = await fetch(
-        'http://localhost:3500/api/gallery/1?count=3&page=1'
+        'http://localhost:3000/api/gallery/1?count=3&page=1'
     );
     const responseData = await apiResponse.json();
     const URLsFromResponse = responseData.images.map((image: any) => image.src);
