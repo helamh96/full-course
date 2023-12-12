@@ -1,23 +1,10 @@
-import {
-    useEffect,
-    useState,
-    useCallback,
-} from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
-function useStorage <T>(key: string, initialValue: any, storage: any) {
-    const readValue = useCallback(() : T => {
-        
-        // const item = storage.getItem(key)
-        // console.log("hey", item)
-        // if(item){
-        //     return (JSON.parse(item) as T)
-        // }
-        // return initialValue
-        // throw new Error(`Error reading localStorage key "${key}"`)
-
+function useStorage<T>(key: string, initialValue: any, storage: any) {
+    const readValue = useCallback((): T => {
         try {
             const item = storage.getItem(key);
-            return item ? (JSON.parse(item) as T) : initialValue
+            return item ? (JSON.parse(item) as T) : initialValue;
         } catch (err) {
             console.warn(`Error reading localStorage key "${key}"`, err);
             return initialValue;
@@ -27,11 +14,11 @@ function useStorage <T>(key: string, initialValue: any, storage: any) {
     const [storedValue, setStoredValue] = useState(readValue);
 
     useEffect(() => {
-        setStoredValue(readValue())
+        setStoredValue(readValue());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [])
+    }, []);
 
     return [storedValue, setStoredValue];
-};
+}
 
 export default useStorage;

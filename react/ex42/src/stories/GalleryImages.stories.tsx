@@ -19,17 +19,17 @@ export const SimplePage: Story = {
     args: {
         images: [
             {
-                width: 678,
-                height: 437,
+                width: 314,
+                height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
             {
-                width: 494,
-                height: 719,
+                width: 314,
+                height: 885,
                 src: 'https://cdn2.thecatapi.com/images/3ip.gif',
             },
             {
-                width: 576,
+                width: 314,
                 height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
@@ -42,43 +42,43 @@ export const FullImages: Story = {
     args: {
         images: [
             {
-                width: 274,
-                height: 737,
-                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
-            },
-            {
-                width: 494,
-                height: 719,
-                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
-            },
-            {
                 width: 314,
-                height: 715,
-                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
-            },
-            {
-                width: 576,
                 height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
             {
-                width: 678,
-                height: 437,
+                width: 314,
+                height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
             {
-                width: 494,
-                height: 719,
+                width: 314,
+                height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
             {
-                width: 934,
+                width: 314,
+                height: 885,
+                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
+            },
+            {
+                width: 314,
+                height: 885,
+                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
+            },
+            {
+                width: 314,
+                height: 885,
+                src: 'https://cdn2.thecatapi.com/images/4ip.gif',
+            },
+            {
+                width: 314,
                 height: 876,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
             {
-                width: 678,
-                height: 437,
+                width: 314,
+                height: 885,
                 src: 'https://cdn2.thecatapi.com/images/4ip.gif',
             },
         ],

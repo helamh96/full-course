@@ -11,9 +11,23 @@ function deleteRepeatingCommas(word) {
     return finalWord;
 }
 
+function isValidInput(tree) {
+    let regex = new RegExp(/(,)+[A-Za-z]/,"g");
+    let matches = tree.match(regex)
+    if(matches!=null){
+        return !Boolean(matches.length)
+    }
+    return true
+    
+}
+
 function printTree(tree, order = 'infix') {
     tree = deleteRepeatingCommas(tree);
     let result = '';
+
+    if(!isValidInput(tree)){
+        throw new SyntaxError('The tree syntax is not correct.')
+    }
 
     function transverseTree(tree) {
         if (!tree) {
